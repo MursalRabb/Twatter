@@ -1,16 +1,24 @@
 import React from 'react'
 
+import axios from 'axios'
+import {url} from '../utils'
+
+import Left from './Left'
+import Center from './Center'
+import Right from './Right'
 
 
 const Home = (props) => {
 
-    const {user} = props
+    const {access} = props
+
+    
 
     return (
         <>
-            <h1>{user.firstname}</h1>
-            <h1>{user.lastname}</h1>
-            <h1>{user.username}</h1>
+            <Left/>  
+            <Center access={access} />
+            <Right/>
         </>
     )
 }

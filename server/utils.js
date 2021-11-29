@@ -72,11 +72,12 @@ function isEmail (data) {
 
 
 async function isAuthorized (token) {
-  let access = token.split(' ')
-  access = access[1]
+  
   
   let user
   try {
+    let access = token.split(' ')
+    access = access[1]
     let privateKey = process.env.SECRET_KEY
     let decoded = jwt.verify(access, privateKey)
     

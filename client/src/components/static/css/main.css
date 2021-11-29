@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 100%;
-    height: fit-content;
+    max-height: fit-content;
+    height: 100%;
     z-index: 999;
 }

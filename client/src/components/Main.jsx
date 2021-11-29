@@ -20,7 +20,7 @@ const Main = (props) => {
             >
                 <Switch>
                     <Route exact path='/'>
-                        {user? <Home user={user}/> : <Redirect to='/login'/>}
+                        {user? <Home user={user} access={access}/> : <Redirect to='/login'/>}
                     </Route>
                     <Route exact path='/signup'>
                         {user? <Redirect to='/'/> : <Signup/>}

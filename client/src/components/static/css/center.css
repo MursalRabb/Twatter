@@ -1,0 +1,28 @@
+.center {
+    width: 50%;
+    height: 100%;
+    max-height: fit-content;
+    background-color: #fff
+}
+
+
+.center-bar {
+    height: 56px;
+    width: 50%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    position: fixed;
+    z-index: 999;
+    
+    display: flex;
+    align-items: center;
+    font-weight: bolder;
+    
+}
+
+.center-bar div {
+    margin-left: 16px;
+    font-size: larger;
+}
+
+

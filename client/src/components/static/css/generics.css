@@ -22,6 +22,19 @@
     margin-right: 12px;
 }
 
+.m-l-8 {
+    margin-left: 8px;
+}
+
+.m-r-8 {
+    margin-right: 8px;
+}
+
+.m-t-8 {
+    margin-top: 8px;
+}
+
+
 .d-flex {
     display: flex;
 }
