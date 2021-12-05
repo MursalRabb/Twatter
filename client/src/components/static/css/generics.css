@@ -48,6 +48,14 @@
     justify-self: flex-start;
 }
 
+.jstfy-cnt-spa {
+    justify-content: space-around;
+}
+
+.jstfy-cnt-spb {
+    justify-content: space-between;
+}
+
 .f-1 {
     flex: 1;
 }

@@ -17,6 +17,9 @@ const Login = (props) => {
     const [errors, setErrors] = React.useState(initialErrors)
     const [loading, setLoading] = React.useState(false)
 
+    React.useEffect(()=>{
+        document.title = 'Log In | Twatter'
+    }, [])
 
     const handleFocus = (event) => {
         let name = event.target.name

@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export const url = 'http://localhost:8000/api/'
 
 export const emailSplitter = (email) => {
@@ -6,3 +8,6 @@ export const emailSplitter = (email) => {
     return uri
 }
 
+export const timeCalc = (value) => {
+    return moment(value).fromNow()
+}

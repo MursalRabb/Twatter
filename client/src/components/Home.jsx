@@ -12,7 +12,9 @@ const Home = (props) => {
 
     const {access} = props
 
-    
+    React.useEffect(()=>{
+        document.title = 'Home | Twatter'
+    }, [])
 
     return (
         <>

@@ -4,7 +4,8 @@ import axios from 'axios'
 import './static/css/create.css'
 import {url} from '../utils'
 
-import {TextField, Button, CircularProgress, Avatar} from '@material-ui/core'
+import {TextField, Button, CircularProgress, Avatar, Snackbar} from '@material-ui/core'
+import Alert from '@material-ui/lab/Alert'
 
 const Create = (props) => {
 
@@ -15,6 +16,8 @@ const Create = (props) => {
     }
     const [errors, setErrors] = React.useState(initialErrors)
     const [loading, setLoading] = React.useState(false)
+    const [content, setContent] = React.useState('')
+    const [isCreated, setIsCreated] = React.useState(false)
 
     const handleFocus = (event) => {
         let name = event.target.name
@@ -37,6 +40,8 @@ const Create = (props) => {
                 let res = await axios.post(`${url}post/create`, data, config)
                 if (res.status === 201) {
                     setLoading(false)
+                    setContent('')
+                    setIsCreated(true)
                 }
             } catch (e) {
                 setLoading(false)
@@ -71,6 +76,8 @@ const Create = (props) => {
                     helperText={errors.content.msg}
                     error={errors.content.bool}
                     onFocus={handleFocus}
+                    value={content}
+                    onChange={(event)=>{setContent(event.target.value)}}
                     />
                     <Button
                     variant='contained'
@@ -86,6 +93,21 @@ const Create = (props) => {
                         }
                     </Button>
                 </form>
+                <Snackbar 
+                open={isCreated} 
+                onClose={()=>setIsCreated(false)}
+                message='Tweet added successfully'
+                autoHideDuration={6000}
+                >
+                    <Alert
+                    variant='filled'
+                    severtiy='success'
+                    open={isCreated}
+                    onClose={()=>setIsCreated(false)}
+                    >
+                        Twaat added successfully
+                    </Alert>
+                </Snackbar>
             </div>
         </>
     )

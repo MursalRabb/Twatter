@@ -7,7 +7,7 @@ import Post from './Post'
 
 const PostCompiler = (props) => {
 
-    const {acu, loading, posts} = props
+    const {acu, loading, posts, access} = props
 
     if (loading && posts.length === 0) {
         return <CircularProgress size={48} color='primary' />
@@ -16,7 +16,7 @@ const PostCompiler = (props) => {
     if (loading && posts.length > 0) {
         return (
             <>
-                {posts.map(data=><Post data={data}/>)}
+                {posts.map(data=><Post postData={data} access={access} />)}
                 {<CircularProgress size={48} color='primary'/>}
             </>
         )
@@ -33,7 +33,7 @@ const PostCompiler = (props) => {
     if (acu === true && posts.length > 0) {
         return (
             <>
-                {posts.map(data=><Post data={data} />)}
+                {posts.map(data=><Post postData={data} access={access}/>)}
                 <Typography>All caught up</Typography>
             </>
         )
@@ -41,7 +41,7 @@ const PostCompiler = (props) => {
 
     else {
         return (
-            <>{posts.map(data=><Post data={data} />)}</>
+            <>{posts.map(data=><Post postData={data} access={access}/>)}</>
         )
     }
 

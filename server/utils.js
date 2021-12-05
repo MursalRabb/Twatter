@@ -93,4 +93,33 @@ async function isAuthorized (token) {
   return user
 }
 
-module.exports = {main, isEmail, isAuthorized}
+
+const likedOrNah = async (posts, isAuth) => {
+  
+  let newPosts = []
+  if (isAuth !== 401) {
+    
+    for (let index = 0; index < posts.length; index++) {
+      const element = posts[index]
+      let isliked = await prisma.post.findUnique({where: {id: element.id}, select: {likes: {where: {id: isAuth.id}}}})
+          let newPost
+            if (isliked.likes.length === 0) {
+                    newPost = {...element, isLiked: false}
+                    newPosts.push(newPost)
+                    
+                    
+                  } else {
+                    newPost = {...element, isLiked: true}
+                    newPosts.push(newPost)
+                  }
+    }
+  }
+ return newPosts
+  
+  
+}
+
+
+
+module.exports = {main, isEmail, isAuthorized, likedOrNah}
+

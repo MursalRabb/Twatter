@@ -26,8 +26,11 @@ const Center = (props) => {
     React.useEffect(()=>{
         setLoading(true)
         async function fetch () {
+
+            const config = {headers: {Authorization: access?  `Bearer ${access}` : null}}
+
             try {
-                let res  = await axios.get(`${url}post/home/?cursor=${cursor}`)
+                let res  = await axios.get(`${url}post/home/?cursor=${cursor}`, config)
                 if (res.status === 200) {
                     let newPosts = res.data
                     setPosts([...posts, ...newPosts])
@@ -84,6 +87,7 @@ const Center = (props) => {
                     acu={ACU}
                     loading={loading}
                     posts={posts}
+                    access={access}
                     />
                 </div>
             </div>

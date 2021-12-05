@@ -15,6 +15,10 @@ const Signup = () => {
 
     const location = useLocation()
     const [error, setError] = React.useState(null)
+
+    React.useEffect(()=>{
+        document.title = 'Sign Up | Twatter'
+    }, [])
     
     React.useEffect(()=>{
         
