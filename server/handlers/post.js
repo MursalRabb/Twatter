@@ -33,6 +33,35 @@ const create = async (req, res) => {
 }
 
 
+const reply = async (req,res) => {
+    let isAuth = await isAuthorized(req.headers.authorization)
+    if (isAuth === 401) {
+        return res.status(401).json({details: 'Unauthorized'})
+    }
+
+    const {content, replyTo} = req.body
+    const errors = createPostValidator(req.body)
+
+    if (_.isEmpty(errors)) {
+        
+        try {
+            let reply = await prisma.post.create({
+                data: {
+                    userId: isAuth.id,
+                    isReply: true,
+                    replyId: replyTo,
+                    content
+                }
+            })
+            return res.status(201).json(reply)
+        } catch (e) {
+            console.log(e)
+        }
+    } else {
+        return res.status(400).json(errors)
+    }
+}
+
 
 const home = async (req,res) => {
     let isAuth = await isAuthorized(req.headers.authorization)
@@ -45,7 +74,7 @@ const home = async (req,res) => {
         posts = await prisma.post.findMany(
             {
                 take: 5,
-                
+                where: {isReply: false},
                 orderBy: {cursorNo: 'desc'},
                 include: 
                 {
@@ -60,11 +89,12 @@ const home = async (req,res) => {
         posts = await prisma.post.findMany(
             {
                 take: 5,
+                where: {isReply: false},
                 skip: 1,
                 cursor: {id: cursor},
                 orderBy: {cursorNo: 'desc'},
                 include: {
-                    _count: {select: {likes: true}},
+                    _count: {select: {likes: true, replies: true}},
                     user:{select:{username: true, firstname: true, lastname: true}}}
                 }
         )
@@ -80,6 +110,52 @@ const home = async (req,res) => {
 
     return res.json(newPosts).status(200)
 }
+
+
+
+const postDetail = async (req, res) => {
+    let id  = req.params.id
+    try {
+        let postItem = await prisma.post.findFirst(
+            {where: {id},
+            include: {
+                _count: {select: {likes: true}},
+                user:{select:{username: true, firstname: true, lastname: true}}
+            }
+        },
+            )
+        if (postItem === null) {
+            
+            return res.status(404).json({details: 'Not found'})
+        } else {
+            return res.json(postItem).status(200)
+        }
+        
+    } catch (e) {
+        console.log(e)
+    }
+    
+}
+
+
+const replies = async (req, res) => {
+    let id = req.params.id
+
+    try {
+        let replyQuery = await prisma.post.findFirst(
+            {where: {id}, select: {replies: {include: {_count: {select: {likes: true, replies: true}}, user: {select: {firstname: true, lastname: true, username: true}}}}}}
+        )
+        
+        if (replyQuery === null) {
+            return res.status(404).json({details: 'Not found'})
+        } else {
+            return res.json(replyQuery).status(200)
+        }
+        } catch (e) {
+            console.log(e)
+        }
+        
+    }
 
 
 const likeUnlike = async (req, res) => {
@@ -106,4 +182,4 @@ const likeUnlike = async (req, res) => {
 }
 
 
-module.exports = {create, home, likeUnlike}
+module.exports = {create, home, likeUnlike, reply, postDetail, replies}

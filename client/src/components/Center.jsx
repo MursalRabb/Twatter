@@ -12,7 +12,7 @@ import Create from './Create'
 
 const Center = (props) => {
 
-    const {access} = props
+    const {access, handleReplyDialog} = props
 
     const [posts, setPosts] = React.useState([])
     const [loading, setLoading] = React.useState(false)
@@ -55,7 +55,7 @@ const Center = (props) => {
         
         if (postsRef.current) {
             let rhs =  postsRef.current.offsetHeight + createRef.current.offsetHeight + 72
-        console.log(rhs,lhs)
+        
 
         if (lhs === rhs) {
             const newPage = page + 1
@@ -84,6 +84,7 @@ const Center = (props) => {
                 ref={postsRef}
                 >
                     <PostCompiler
+                    handleReplyDialog={handleReplyDialog}
                     acu={ACU}
                     loading={loading}
                     posts={posts}

@@ -1,0 +1,43 @@
+.rply-dia {
+    width: 40%;
+    height: 80%;
+    background-color: #fff;
+    z-index: 10000;
+    position: fixed;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 11px 15px -7px, rgba(0, 0, 0, 0.14) 0px 24px 38px 3px, rgba(0, 0, 0, 0.12) 0px 9px 46px 8px;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+    background-image: linear-gradient(rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.16));
+    overflow-y: scroll
+    
+}
+
+.rply-dia-cnt {
+    display: flex;
+    margin: 16px;
+    height: fit-content;
+    
+}
+
+
+
+.rply {
+    display: flex;
+    height: 50%;
+    word-break: normal;
+    text-align: justify;
+    flex: 1;
+}
+
+.rply-av {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rply-lnk {
+    width: 2px;
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.3);
+}

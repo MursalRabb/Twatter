@@ -20,8 +20,8 @@ model User {
 
   isActive Boolean @default(false)
 
-  posts Post[] @relation(name: "postuser")
-  liked_posts Post[]  @relation(name: "postlikes")
+  posts       Post[] @relation(name: "postuser")
+  liked_posts Post[] @relation(name: "postlikes")
 
   // token Token?
 }
@@ -35,14 +35,20 @@ model User {
 // }
 
 model Post {
-  id      String   @id @default(uuid())
-  content String @db.VarChar(1000)
-  created DateTime @default(now())
-  cursorNo Int @default(autoincrement())
+  id       String   @id @default(uuid())
+  content  String   @db.VarChar(1000)
+  created  DateTime @default(now())
+  cursorNo Int      @default(autoincrement())
 
   user   User   @relation(fields: [userId], references: [id], name: "postuser")
   userId String
 
   likes User[] @relation(references: [id], name: "postlikes")
-  
+
+  //replies
+  isReply Boolean @default(false)
+  replies Post[]  @relation(name: "replies")
+  replyTo Post?   @relation(fields: [replyId], name: "replies", references: [id])
+  replyId String?
+
 }

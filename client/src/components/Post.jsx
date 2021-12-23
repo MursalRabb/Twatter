@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import axios from 'axios'
 import {url, timeCalc} from '../utils'
 import './static/css/post.css'
@@ -9,14 +10,44 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import RepeatIcon from '@material-ui/icons/Repeat';
 
+import Replies from './Replies'
+
 
 const Post = (props) => {
 
-    const {postData, access} = props
-    const {content, created, user, id, isLiked, _count} = postData
+    const {postData, access, handleReplyDialog} = props
+    const {content, created, user, id, isLiked, _count, isReply} = postData
+
+    const postLinkRef = React.useRef()
 
     const [liked, setLiked] = React.useState(isLiked)
     const [likesCount, setLikesCount] = React.useState(_count.likes)
+    const [isReplying, setIsReplying] = React.useState(false)
+
+
+    const styleFormatter = (type) => {
+        if (type === 'connector') {
+            if (isReply === false) {
+                return {'display': 'none'}
+            } else if (isReply === true && _count.replies === 0) {
+                return {'display': 'none'}
+            } else {
+                return {}
+            }
+        } else if (type==='container') {
+            if (isReply === true && _count.replies !== 0) {
+                return {'margin': '0px 16px'}
+            } else {
+                return {}
+            }
+        } else {
+            if ((isReply === true && _count.replies === 0) || isReply === false) {
+                return {}
+            } else {
+                return {'borderBottom': 'none'}
+            }
+        }
+    }
 
     const handleLike = () => {
         setLiked(!liked)
@@ -45,10 +76,13 @@ const Post = (props) => {
 
     return (
         <>
-            <div className='post'>
-                <div className='post-cnt'>
-                    <Avatar/>
-                    <div className='d-flex d-flex-clm m-l-8'>
+            <div className='post' style={styleFormatter('border')}>
+                <div className='post-cnt' style={styleFormatter('container')}>
+                    <div className='d-flex d-flex-clm aln-itm-cntr'>
+                        <Avatar/>
+                        <div className='rply-lnk' style={styleFormatter('connector')}></div>
+                    </div>
+                    <div className='d-flex d-flex-clm m-l-8 m-t-8 f-1'>
                         <div className='d-flex'>
                             <Typography variant='subtitle2' style={{'fontWeight': 'bolder'}}>{`${user.firstname} ${user.lastname}`}</Typography>
                             <span className='m-l-8'>
@@ -62,7 +96,7 @@ const Post = (props) => {
                             variant='subtitle2'>{timeCalc(created)}</Typography>
                             </span>
                         </div>
-                        <Typography variant='subtitle2'>
+                        <Typography variant='subtitle2' style={{'cursor': 'pointer'}} onClick={()=>postLinkRef.current.click()}>
                             {content}
                         </Typography>
                         <div className='m-t-8 m-l-8 d-flex jstfy-cnt-spb'>
@@ -81,22 +115,23 @@ const Post = (props) => {
                             />
                             <FormControlLabel
                             
-                            label={<Typography variant='subtitle2' >{likesCount}</Typography>}
-                            onClick={handleLike}
+                            label={<Typography variant='subtitle2' >{'this click'}</Typography>}
+                            onClick={()=>handleReplyDialog(postData)}
                             style={{'cursor':'default'}}
                             control={<ChatBubbleOutlineIcon fontSize='small'/>}
                             />
                             <FormControlLabel
                             label={<Typography variant='subtitle2' >{likesCount}</Typography>}
-                            onClick={handleLike}
+                            
                             style={{'cursor':'default'}}
                             control={<RepeatIcon fontSize='small'/>}
                             />
                         </div>
-                        
+                        <Link exact to={`/post/${id}`} hidden ref={postLinkRef}/>
                     </div>
                 </div>
             </div>
+            <Replies  isReply={isReply} repliesCount={_count.replies} id={id}/>
         </>
     )
 }
