@@ -21,3 +21,10 @@
     margin-top: 12px;
     color: #fff;
 }
+
+
+@media (max-width: 756px) {
+    .signup  {
+        width: 80%;
+    }
+}

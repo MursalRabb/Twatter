@@ -26,3 +26,9 @@
 }
 
 
+
+@media (max-width: 756px) {
+    .center {
+        width: 80%;
+    }
+}

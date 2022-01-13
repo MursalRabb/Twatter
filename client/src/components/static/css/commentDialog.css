@@ -1,0 +1,34 @@
+.cmt-itm {
+    width: fit-content;
+    height: fit-content;
+}
+
+.cmt-itm-cnt {
+    margin: 16px;
+    display: flex;
+    
+    
+}
+
+
+
+.cmt-itm-main {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+    word-break: keep-all;
+    text-align: justify;
+
+}
+
+.cmt-rply {
+    transform: translateX(0%);
+    transition: transform 0.2s;
+}
+
+.open {
+    transform: translateX(-100%);
+    transition: transform 0.2s;
+
+    
+}

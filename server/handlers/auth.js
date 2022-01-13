@@ -11,7 +11,7 @@ const { user } = require('../prisma/connection')
 
 
 
-const signup = async (req, res) => {
+ async function signup (req, res) {
     let errors = await signupValidator(req.body)
     
 
@@ -26,6 +26,7 @@ const signup = async (req, res) => {
 
 
         try {
+            
             let user = await prisma.user.create({
                 data: {
                     firstname,
@@ -35,12 +36,13 @@ const signup = async (req, res) => {
                     password: hashed,
                 }
             })
-            
+
            
 
             let emailResponse = await main({firstname, email, activationToken, domain: req.get('host')})
           
             if (emailResponse == 'error') {
+                
                 await prisma.user.delete({where: {email}})
                 return res.status(500).json({'details': 'internal server error'})
             }

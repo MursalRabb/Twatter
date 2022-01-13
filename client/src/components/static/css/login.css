@@ -21,3 +21,9 @@
 .login-cnt button {
     color: #fff
 }
+
+@media (max-width: 756px) {
+    .login {
+        width: 80%;
+    }
+}

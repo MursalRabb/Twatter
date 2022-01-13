@@ -228,9 +228,9 @@ const Signup = () => {
                         </Typography>
                         <Typography variant='h6'>
                             {'A confirmation message has been sent. Please visit your '}
-                            {<MUILink href={email}>Email Account</MUILink>}
+                            {<a target='_blank' href={`http://${email}`} rel='noreferrer'>Email</a>}
                             {' to activate your account or '}
-                            {<MUILink>Log In</MUILink>}
+                            {<Link exact to='/login'><MUILink>Log In</MUILink></Link>}
                         </Typography>
                     </div>
                 </div>

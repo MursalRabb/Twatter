@@ -12,11 +12,13 @@ import RepeatIcon from '@material-ui/icons/Repeat';
 
 const Post = (props) => {
 
-    const {postData, access} = props
+    const {postData, access, handleCommentDialog} = props
     const {content, created, user, id, isLiked, _count} = postData
 
     const [liked, setLiked] = React.useState(isLiked)
     const [likesCount, setLikesCount] = React.useState(_count.likes)
+
+    
 
     const handleLike = () => {
         setLiked(!liked)
@@ -80,10 +82,10 @@ const Post = (props) => {
                             
                             />
                             <FormControlLabel
-                            
+                            style={{'cursor':'pointer'}}
                             label={<Typography variant='subtitle2' >{likesCount}</Typography>}
-                            onClick={handleLike}
-                            style={{'cursor':'default'}}
+                            onClick={()=>handleCommentDialog(id)}
+                            
                             control={<ChatBubbleOutlineIcon fontSize='small'/>}
                             />
                             <FormControlLabel

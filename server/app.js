@@ -1,6 +1,7 @@
 const express = require('express')
 const auth =  require('./routes/auth')
 const post = require('./routes/post')
+const comment = require('./routes/comment')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const {activate} = require('./handlers/auth')
@@ -31,6 +32,7 @@ app.use(express.json())
 //main routing
 app.use('/api/auth', auth)
 app.use('/api/post', post)
+app.use('/api/comment', comment)
 
 
 app.get('/activate', activate)

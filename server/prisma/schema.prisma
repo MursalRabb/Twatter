@@ -20,29 +20,45 @@ model User {
 
   isActive Boolean @default(false)
 
-  posts Post[] @relation(name: "postuser")
-  liked_posts Post[]  @relation(name: "postlikes")
+  posts       Post[] @relation(name: "postuser")
+  liked_posts Post[] @relation(name: "postlikes")
 
-  // token Token?
+  comments Comment[] @relation(name: "comments")
+
+
 }
 
-// model Token {
-//   id      String @id @default(uuid())
-//   access  String
-//   refresh String
-//   user    User   @relation(fields: [userId], references: [id])
-//   userId  String @unique
-// }
-
 model Post {
-  id      String   @id @default(uuid())
-  content String @db.VarChar(1000)
-  created DateTime @default(now())
-  cursorNo Int @default(autoincrement())
+  id       String   @id @default(uuid())
+  content  String   @db.VarChar(1000)
+  created  DateTime @default(now())
+  cursorNo Int      @default(autoincrement())
 
   user   User   @relation(fields: [userId], references: [id], name: "postuser")
   userId String
 
-  likes User[] @relation(references: [id], name: "postlikes")
-  
+  likes User[] @relation(name: "postlikes")
+
+  comments Comment[]
+
+}
+
+model Comment {
+  id      String   @id @default(uuid())
+  created DateTime @default(now())
+
+  content String @db.VarChar(1000)
+
+  user   User   @relation(fields: [userId], references: [id], name: "comments")
+  userId String
+
+  post   Post?   @relation(fields: [postId], references: [id])
+  postId String?
+
+  isReply Boolean @default(false)
+
+  replies Comment[] @relation(name: "replies")
+  replyTo Comment?  @relation(name: "replies", fields: [replyId], references: [id])
+
+  replyId String?
 }

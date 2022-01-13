@@ -10,7 +10,7 @@ import Right from './Right'
 
 const Home = (props) => {
 
-    const {access} = props
+    const {access, handleCommentDialog} = props
 
     React.useEffect(()=>{
         document.title = 'Home | Twatter'
@@ -19,7 +19,7 @@ const Home = (props) => {
     return (
         <>
             <Left/>  
-            <Center access={access} />
+            <Center access={access} handleCommentDialog={handleCommentDialog}/>
             <Right/>
         </>
     )

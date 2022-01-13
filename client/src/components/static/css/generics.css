@@ -18,6 +18,10 @@
     margin-left: 16px;
 }
 
+.m-l-46 {
+    margin-left: 46px;
+}
+
 .m-r-12 {
     margin-right: 12px;
 }
@@ -54,6 +58,10 @@
 
 .jstfy-cnt-spb {
     justify-content: space-between;
+}
+
+.aln-itm-cntr {
+    align-items: center;
 }
 
 .f-1 {
