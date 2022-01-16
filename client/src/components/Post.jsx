@@ -83,14 +83,14 @@ const Post = (props) => {
                             />
                             <FormControlLabel
                             style={{'cursor':'pointer'}}
-                            label={<Typography variant='subtitle2' >{likesCount}</Typography>}
+                            label={<Typography variant='subtitle2' >{_count.comments}</Typography>}
                             onClick={()=>handleCommentDialog(id)}
                             
                             control={<ChatBubbleOutlineIcon fontSize='small'/>}
                             />
                             <FormControlLabel
-                            label={<Typography variant='subtitle2' >{likesCount}</Typography>}
-                            onClick={handleLike}
+                            label={<Typography variant='subtitle2' >{}</Typography>}
+                            onClick={()=>{}}
                             style={{'cursor':'default'}}
                             control={<RepeatIcon fontSize='small'/>}
                             />

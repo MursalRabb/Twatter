@@ -15,6 +15,9 @@ import CancelIcon from '@material-ui/icons/Cancel'
 import SendIcon from '@material-ui/icons/Send';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+
 import './static/css/commentDialog.css'
 
 import MuiDialog from '@material-ui/core/Dialog'
@@ -39,6 +42,7 @@ const CommentItem = (props) => {
     const [viewReplies, setViewReplies] =  React.useState(false)
     const [replies, setReplies] = React.useState([])
     const [repliesCount, setRepliesCount] = React.useState(0)
+    const [isLiked, setIsLiked] = React.useState(true)
     
     
 
@@ -132,6 +136,12 @@ const CommentItem = (props) => {
         }
     }
 
+
+
+    const handleClick = () => {
+        console.log(id)
+    }
+
     return (
         <>
             <div className={classFormatter()}>
@@ -164,7 +174,9 @@ const CommentItem = (props) => {
                                 onClick={()=>handleReply(id, isReply, user.username, replyId)}
                                 >Reply</Typography>
                             :
-                            <div className='d-flex m-t-8'>
+                            <div className='d-flex m-t-8 aln-itm-cntr'>
+                                
+                                <Divider orientation='vertical' />
                                 <Typography
                                 color='primary'
                                 style={{'cursor': 'pointer'}}
@@ -195,6 +207,22 @@ const CommentItem = (props) => {
                             </div>
                         }
                     </div>
+                    <div className='f-1'></div>
+                    <FormControlLabel
+                    control={
+                        <IconButton
+                        onClick={handleClick}
+                        >
+                        {
+                            isLiked === true?
+                            <FavoriteIcon color='secondary' fontSize='small'/>
+                            :
+                            <FavoriteBorderIcon/>
+                        }
+                    </IconButton> 
+                    }
+                    label={13}
+                    />        
                 </div>
             </div>
             {repliesRenderer()}
